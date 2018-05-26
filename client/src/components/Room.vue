@@ -14,8 +14,7 @@
                         <p id="rating"></p>
                         <p id="num-reviews">Rating: {{res.rating}} <br> {{res.review_count}} Reviews<br>Price: {{res.price}}</p>
                         <h3 id="vote-num">{{res.votes.length}}</h3>
-                    <button class="vote" v-on:click="submitVote(res)">+ vote</button>
-
+                    <button :class="{unvote : userInArray(res) == true}" v-on:click="submitVote(res)">{{userInArray(res) ? '- vote' : '+ vote'}}</button>
                   </div>
                 </div>
             </div>
@@ -138,7 +137,7 @@ export default {
           var payload = {
               restaurant: object.id,
               vote: this.userId,
-              unvote: false
+              unvote: this.userInArray(object)
           }
           console.log(payload);
           $.ajax({
@@ -154,7 +153,10 @@ export default {
                   console.log(e);
               }
           })
-      }
+      },
+        userInArray: function(res){
+            return res['votes'].indexOf(this.userId) >= 0;
+        },
     },
     mounted: function(){
         var self = this;
@@ -303,11 +305,28 @@ a:hover{
     border-radius: 6px;
     border: solid;
 }
+.unvote{
+    cursor: pointer;
+    font-weight: bold;
+    color: #D10000;
+    background-color: #FFFFFF;
+    font-size: 18px;
+    padding: 10px 20px;
+    border: none;
+    font-family: 'Avenir', Helvetica, Arial, sans-serif;
+    border-radius: 6px;
+    border: solid;
+}
+.unvote:hover{
+    color: #FFFFFF;
+    background-color: #D10000;
+}
 
 button {
     cursor: pointer;
     font-weight: bold;
-    color: #D10000;
+    color: #FFFFFF;
+    background: #D10000;
     font-size: 18px;
     padding: 10px 20px;
     border: none;
@@ -317,7 +336,7 @@ button {
 }
 
 button:hover {
-    color: #FFFFFF;
-    background-color: #D10000;
+    color: #D10000;
+    background-color: #FFFFFF;
 }
 </style>
