@@ -1,5 +1,6 @@
 var createError = require('http-errors');
 var express = require('express');
+var bodyParser = require('body-parser');
 var cors = require('cors')
 var path = require('path');
 var cookieParser = require('cookie-parser');
@@ -10,6 +11,7 @@ var searchRouter = require('./routes/search');
 var roomRouter = require('./routes/room');
 
 var app = express();
+app.set('view engine', 'ejs')
 app.use(cors());
 app.use(logger('dev'));
 app.use(express.json());
@@ -36,7 +38,7 @@ app.use(function (err, req, res, next) {
 
   // render the error page
   res.status(err.status || 500);
-  res.render('error');
+  res.json({'err': err})
 });
 
 module.exports = app;

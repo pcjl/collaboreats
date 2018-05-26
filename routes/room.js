@@ -88,7 +88,7 @@ router.put('/:id', function (req, res, next) {
     var restaurant_name = req.body['restaurant'];
     var vote_name = req.body['vote'];
     var unvote = req.body['unvote'];
-
+    
     // Find room by id
     Room.findOne({
         'name': id,
