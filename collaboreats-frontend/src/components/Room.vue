@@ -1,6 +1,17 @@
 <template>
-    <div class="room">
+    <div class="Room">
         <h1> collaboreats </h1>
+        <div class="VoteSection">
+          <h2> Vote </h2>
+          <div class="VoteRestaurants">
+
+          </div>
+        </div>
+        
+        <div class="SearchSection">
+          <h2> Add a Restaurant </h2>
+        </div>
+
     </div>
 
 </template>
@@ -10,7 +21,7 @@ export default {
   name: 'Room',
   data () {
     return {
-      msg: 'Welcome to Your Vue.js App'
+
     }
   }
 }
@@ -18,18 +29,8 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-h1, h2 {
-  font-weight: normal;
-}
-ul {
-  list-style-type: none;
-  padding: 0;
-}
-li {
-  display: inline-block;
-  margin: 0 10px;
-}
-a {
-  color: #42b983;
-}
+h2 { display:inline; font-weight: normal; font-size: 48px; color:#D10000;}
+ul { list-style-type: none; padding: 0;}
+li {display: inline-block; margin: 0 10px; }
+a { color: #42b983;}
 </style>
