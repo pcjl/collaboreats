@@ -4,9 +4,9 @@
             <h1 id="collab"> collabor</h1>
             <h1 id="eats">eats </h1>
         </div>
-        <div class="VoteSection">
+        <div class="VoteSection" v-cloak>
             <h2> Vote </h2>
-            <div class="emptyList"v-if="emptyRestaurantList">
+            <div class="emptyList" v-if="emptyRestaurantList">
                 <h2> Add restaurants to the list by using the search bar below...</h2>
             </div>
             <div class="card" id="vote">
@@ -73,7 +73,7 @@ export default {
             return this.restaurants.sort(compare);
         },
         emptyRestaurantList: function(){
-            return this.restaurants.length > 0 ? false : true;
+            return this.restaurants.length > 0 || !this.pageReady ? false : true;
         }
 
     },
@@ -81,7 +81,9 @@ export default {
     data () {
         return {
             restaurants: [],
-            searchResults: []
+            searchResults: [],
+            pageReady: false
+
         }
     },
     methods: {
@@ -182,6 +184,7 @@ export default {
             contentType: 'application/json',
             success: function (data) {
                 var restaurants = data['room']['restaurants'];
+                if(restaurants.length == 0) self.pageReady = true;
                 var votes = {};
 
                 var i;
@@ -209,11 +212,13 @@ export default {
                             restaurantDetails[i]['votes'] = votes[restaurantDetails[i]['id']];
                         }
                         self.restaurants = restaurantDetails;
+                        self.pageReady = true;
                     },
                     error: function (e) {
                         console.log(e);
                     }
                 });
+
             },
             error: function (e) {
                 console.log(e);
@@ -382,5 +387,7 @@ button:hover {
 .footer #roomIdValue{
     color: #D10000;
 }
+
+[v-cloak] { display:none; }
 
 </style>
