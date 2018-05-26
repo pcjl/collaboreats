@@ -110,8 +110,40 @@ export default {
       addToList: function(object){
         var self = this;
         self.restaurants.push(object);
+        $.ajax({
+            url: 'http://localhost:3000/'+this.roomId,
+            type: "PUT",
+            processData: false,
+            data: {
+                restaurant: object.id,
+                vote: this.userId,
+                unvote: false
+            },
+            contentType: 'application/json',
+            success: function (data) {
+
+            },
+            error: function (e) {
+                console.log(e);
+            }
+        });
       }
   },
+
+  mounted: function() {
+      $.ajax({
+          url: 'http://localhost:3000/'+this.roomId,
+          type: "GET",
+          processData: false,
+          contentType: 'application/json',
+          success: function (data) {
+            data.rooms.restaurants;
+          },
+          error: function (e) {
+              console.log(e);
+          }
+      });
+  }
 }
 </script>
 
