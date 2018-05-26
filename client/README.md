@@ -1,6 +1,6 @@
-# collaboreats-frontend
+# client
 
-> EngHack 2018 project
+Vue.js front end for collaboreats
 
 ## Build Setup
 
