@@ -113,7 +113,7 @@ export default {
             processData: false,
             contentType: 'application/json',
             success: function (data) {
-                data.rooms.restaurants;
+                data.room.restaurants;
             },
             error: function (e) {
                 console.log(e);
