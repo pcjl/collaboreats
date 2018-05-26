@@ -42,7 +42,6 @@
         filter: 'create',
         response: null
       }
-
     },
     methods: {
       setFilter: function (name) {
@@ -102,8 +101,8 @@
           dataType: 'json',
           success: function (response) {
             if (!response.success) {
-              alert("Room could not be created");
-              return;
+              alert("Error: Could not create room");
+              return false;
             }
 
             var roomId = response.name;
