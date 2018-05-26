@@ -6,8 +6,8 @@ require('dotenv').load();
 
 const YELP_TOKEN = process.env.YELP_TOKEN || '';
 
-/* GET search. */
-router.get('/', function (req, res, next) {
+/* POST search. */
+router.post('/', function (req, res, next) {
     /*
         {
             "term": "Lazeez",
@@ -32,8 +32,8 @@ router.get('/', function (req, res, next) {
     });
 });
 
-/* GET search autocomplete. */
-router.get('/autocomplete', function (req, res, next) {
+/* POST search autocomplete. */
+router.post('/autocomplete', function (req, res, next) {
     /*
         {
             "text": "Lazeez",
@@ -58,7 +58,8 @@ router.get('/autocomplete', function (req, res, next) {
     });
 });
 
-router.get('/ids', function (req, res, next) {
+/* POST id search. */
+router.post('/ids', function (req, res, next) {
     /*
         {
             "restaurants": ["IL_lajLYPfw8kYWuy5MK8A"]
