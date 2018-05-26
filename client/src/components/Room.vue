@@ -76,7 +76,7 @@ export default {
                 processData: false,
                 contentType: 'application/json',
                 success: function (data) {
-                  restaurantsHandler(self, data);
+                    restaurantsHandler(self, data);
                 },
                 error: function (e) {
                     console.log(e);
@@ -93,12 +93,13 @@ export default {
           }
           console.log(payload);
           $.ajax({
-              url: 'http://localhost:3000/'+this.roomId,
+              url: 'http://localhost:3000/' + this.roomId,
               type: "PUT",
-              data: payload,
+              data: JSON.stringify(payload),
               processData: false,
               contentType: 'application/json',
               success: function (data) {
+                  return;
               },
               error: function (e) {
                   console.log(e);
