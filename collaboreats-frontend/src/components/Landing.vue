@@ -45,7 +45,7 @@ export default {
         },
         createRoom: function(){
             $.ajax({
-                url: '/',
+                url: 'http://localhost:3000/',
                 type: "POST",
                 async: false,
                 dataType: 'json',

@@ -6,24 +6,24 @@
 
 <script>
 import Landing from './components/Landing'
-
+import Room from './components/Room'
 export default {
-
   name: 'App',
   components: {
-    Landing
+    Landing,
+    Room
   }
 }
 </script>
 
 <style>
 #app {
-      font-family: 'Avenir', Helvetica, Arial, sans-serif;
-      -webkit-font-smoothing: antialiased;
-      -moz-osx-font-smoothing: grayscale;
-      text-align: center;
-      color: #2c3e50;
-      margin-top: 60px;
-  }
+  font-family: 'Avenir', Helvetica, Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-align: center;
+  color: #2c3e50;
+  margin-top: 60px;
+}
 html{background-color: #FAF4F1;}
 </style>
