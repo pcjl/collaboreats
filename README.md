@@ -29,6 +29,10 @@ Sockets for real-time updates. More Yelp information. Veto options. Auto-complet
 
 ![Screenshot of our first version](./images/screenshot.png)
 
+### Video
+
+[YouTube Demo](https://youtu.be/O5JcfpIHFmE)
+
 ### Technologies used
  - Node.js
  - Express.js
