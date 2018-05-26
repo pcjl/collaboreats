@@ -3,16 +3,16 @@
         <div class="Collaboreats">
             <h1 id="collab"> collabor</h1><h1 id="eats">eats </h1>
         </div>
-        
+
         <div class="VoteSection">
           <h2> Vote </h2>
-          
+
           <div class="card" id="vote">
             content
           </div>
 
         </div>
-        
+
         <div class="SearchSection">
           <h2> Add a Restaurant </h2>
 
@@ -35,11 +35,11 @@ export default {
   computed: function(){
 
   },
-      
+
   data () {
     return {
-      restaurants: null
-      searchresults: null
+      restaurants: null,
+      searchresults: null,
       autocompleteresults: null
     }
   },
@@ -57,7 +57,7 @@ export default {
       }
     })
   },
-  
+
 }
 </script>
 

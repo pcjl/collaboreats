@@ -6,9 +6,22 @@
     <title>collaboreats-frontend</title>
   </head>
   <body>
-    <div id="app"></div>
-    <!-- built files will be auto injected -->
+      <div id="app">
+          <router-view></router-view>
+      </div>
   </body>
   <script src="https://js.stripe.com/v3/"></script>
 
 </html>
+
+<style>
+#app {
+  font-family: 'Avenir', Helvetica, Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-align: center;
+  color: #2c3e50;
+  margin-top: 60px;
+}
+html{background-color: #FAF4F1;}
+</style>
