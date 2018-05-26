@@ -58,4 +58,40 @@ router.get('/autocomplete', function (req, res, next) {
     });
 });
 
+router.get('/ids', function (req, res, next) {
+    /*
+        {
+            "restaurants": ["IL_lajLYPfw8kYWuy5MK8A"]
+        }
+    */
+    var restaurants = req.body["restaurants"];
+    var restaurantDetails = [];
+    var count = restaurants.length;
+
+    restaurants.forEach(function (id) {
+        console.log('https://api.yelp.com/v3/businesses/' + id);
+        request.get('https://api.yelp.com/v3/businesses/' + id, {
+            headers: {
+                'Authorization': 'Bearer ' + YELP_TOKEN
+            }
+        }, function (err, resp, body) {
+            if (err) {
+                res.json({
+                    "success": false,
+                    "error": "Yelp error"
+                });
+                return;
+            }
+
+            restaurantDetails.push(JSON.parse(body));
+            count--;
+            if (count === 0) {
+                res.json({
+                    "businesses": restaurantDetails
+                });
+            }
+        });
+    });
+});
+
 module.exports = router;
