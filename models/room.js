@@ -3,8 +3,9 @@ var Schema = mongoose.Schema;
 
 var roomSchema = new Schema({
     name: String,
+    room_name: String,
     restaurants: [{
-        type: Schema.Types.ObjectId,
+        type: Schema.Types.Mixed,
         ref: 'Restaurant'
     }],
 });

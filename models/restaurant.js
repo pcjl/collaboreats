@@ -3,11 +3,8 @@ var Schema = mongoose.Schema;
 
 var restaurantSchema = new Schema({
     name: String,
-    votes: [{
-        type: Schema.Types.ObjectId,
-        ref: 'Vote'
-    }]
+    votes: [String]
 });
 
-var Restaurant = mongoose.model('Restaurant', restaurantsSchema);
+var Restaurant = mongoose.model('Restaurant', restaurantSchema);
 module.exports = Restaurant;
