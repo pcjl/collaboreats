@@ -4,8 +4,8 @@ var Schema = mongoose.Schema;
 var roomSchema = new Schema({
     name: String,
     restaurants: [{
-        type: Schema.Types.Mixed,
-        ref: 'Restaurant'
+        name: String,
+        votes: [String]
     }],
 });
 
