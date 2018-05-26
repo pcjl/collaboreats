@@ -11,7 +11,7 @@ import Landing from './components/Landing.vue'
 
 const routes = [
   { path: '/', component: Landing },
-  { path: '/room', component: Room },
+  { path: '/room/:roomId/:userId', component: Room, props: true },
 ]
 Vue.use(VueRouter);
 

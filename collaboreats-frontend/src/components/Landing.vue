@@ -11,14 +11,14 @@
                 </ul>
             </div>
             <div class="page" id="createRoom" v-show="filter == 'create'">
-                <input class="text-field" id="nickname"type="text">
+                <input class="text-field" id="nicknameCreate"type="text" placeholder = "Nickname">
                 <button class="btn" id="createRoomBtn" v-on:click="createRoom()">Create</button>
             </div>
 
             <div class="page" id="joinRoom" v-show="filter == 'join'">
-                <input class="text-field" id="nickname"type="text" placeholder = "Nickname">
+                <input class="text-field" id="nicknameJoin"type="text" placeholder = "Nickname">
                 <input class="text-field" id="roomId"type="text" placeholder = "Room ID">
-                <button class="btn" id="joinRoomBtn">Join</button>
+                <button class="btn" id="joinRoomBtn" v-on:click="joinRoom()">Join</button>
             </div>
         </div>
     </div>
@@ -39,19 +39,61 @@ export default {
         setFilter: function(name){
             this.filter = name;
         },
+        getTextFieldData: function(id){
+            return $("#"+id).val();
+        },
         joinRoom: function(id){
+            var nickname = this.getTextFieldData('nicknameJoin');
 
+            if(nickname == ''){
+                alert("Please enter your nickname before creating a room");
+                return;
+            }
+
+            var roomId = this.getTextFieldData('roomId');
+
+            if(roomId == ''){
+                alert("Please enter a Room Id to enter a room");
+                return;
+            }
+
+            $.ajax({
+                url: 'http://localhost:3000/'+roomId,
+                type: "GET",
+                async: false,
+                dataType: 'json',
+                success: function (response) {
+                    if(!response.success){
+                        //throw err
+                        alert("We can not find your room")
+                        return;
+                    }
+                    window.location.replace('/#/room/'+roomId+'/'+nickname);
+                }
+            });
 
         },
         createRoom: function(){
+            var nickname = this.getTextFieldData('nicknameCreate')
+
+            if(nickname == ''){
+                alert("Please enter your nickname before creating a room")
+                return;
+            }
             $.ajax({
                 url: 'http://localhost:3000/',
                 type: "POST",
                 async: false,
                 dataType: 'json',
                 success: function (response) {
-                    this.response = response;
-                    
+                    if(!response.success){
+                        //throw err
+                        alert("We apologise, we could not create a room")
+                        return;
+                    }
+
+                    var roomId = response.name;
+                    window.location.replace('/#/room/'+roomId+'/'+nickname);
                 }
             });
         }
