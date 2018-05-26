@@ -15,7 +15,8 @@
                 <p id="category">{{res.category}}</p>
                 <p id="num-reviews">{{res.numreviews}}</p>
                 <p id="price">{{res.price}}</p>
-                <button class ="btn" v-on:click="addToList(res)">add</button>
+                <!-- <button class ="btn" v-on:click="addToList(res)">add</button> -->
+
               </div>
 
           </div>
@@ -65,6 +66,15 @@ export default {
   props: ['roomId', 'userId'],
   components:{
     "card": require("vue-card")
+  },
+  computed: {
+      getRoomId: function(){
+          return this.roomId;
+      },
+      getNickname: function(){
+          return this.userId;
+      }
+
   },
 
   data () {
