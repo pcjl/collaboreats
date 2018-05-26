@@ -14,7 +14,7 @@
                         <p id="rating"></p>
                         <p id="num-reviews">Rating: {{res.rating}} <br> {{res.review_count}} Reviews<br>Price: {{res.price}}</p>
                         <h3 id="vote-num">{{res.vote_count}}</h3>
-                    <button class="vote" v-on:click="addToList(res)">+ vote</button>
+                    <button class="vote" v-on:click="submitVote(res)">+ vote</button>
 
                   </div>
                 </div>
@@ -107,7 +107,29 @@ export default {
                   console.log(e);
               }
           })
-        }
+      },
+
+      submitVote: function(object){
+          var payload = {
+              restaurant: object.id,
+              vote: this.userId,
+              unvote: false
+          }
+          console.log(payload);
+          $.ajax({
+              url: 'http://localhost:3000/' + this.roomId,
+              type: "PUT",
+              data: JSON.stringify(payload),
+              processData: false,
+              contentType: 'application/json',
+              success: function (data) {
+                  return;
+              },
+              error: function (e) {
+                  console.log(e);
+              }
+          })
+      }
     },
     mounted: function(){
         var self = this;
