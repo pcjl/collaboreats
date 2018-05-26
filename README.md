@@ -19,9 +19,8 @@
  - Node.js
     - Express.js
     - Socket.IO
- - Redis
- - React
- - Docker (?)
+ - MongoDB
+ - Vue.js
 
 ## Routes
  - Homepage (`/`)
