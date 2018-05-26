@@ -13,7 +13,9 @@
                         <img id="image" :src="res.image_url" alt = N/A>
                         <p id="rating"></p>
                         <p id="num-reviews">Rating: {{res.rating}} <br> {{res.review_count}} Reviews<br>Price: {{res.price}}</p>
-                    <button class="btn" v-on:click="addToList(res)">add</button>
+                        <h3 id="vote-num">{{res.vote_count}}</h3>
+                    <button class="vote" v-on:click="addToList(res)">+ vote</button>
+
                   </div>
                 </div>
             </div>
@@ -160,25 +162,26 @@ h2 {
 }
 
 h3 {
-    font-size: 18px;
-    max-width: 100px
+    font-size: 20px;
+    width: 100px
+}
+
+h3#vote-num{
+  text-align: right;
+  color: #D10000;
 }
 
 p {
     font-weight: normal;
 }
 
-p #rating, p#money{
-  display: inline;
-}
-
 .container {
     padding: 20px;
-    width: 100%;
+    width: 90%;
     display: inline-flex;
     flex-direction: row;
     flex-wrap: nowrap;
-    justify-content: space-evenly;
+    justify-content: space-around;
     align-items: center;
 }
 
@@ -198,11 +201,22 @@ img{
   height: 100px;
 }
 
+.vote{
+    cursor: pointer;
+    font-weight: bold;
+    color: #D10000;
+    font-size: 18px;
+    padding: 10px 20px;
+    border: none;
+    font-family: 'Avenir', Helvetica, Arial, sans-serif;
+    border-radius: 6px;
+    border: solid;
+}
+
 button {
     cursor: pointer;
     font-weight: bold;
     color: #D10000;
-    margin: 50px;
     font-size: 18px;
     padding: 10px 20px;
     border: none;
