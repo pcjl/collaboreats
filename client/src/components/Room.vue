@@ -106,6 +106,11 @@ export default {
               return restaurant['id'] == object['id'];
           });
           if (matching_restaurant == null) {
+            //
+            ///
+            ///
+            object['votes'] = [this.userId];
+
             self.restaurants.push(object);
           }
           var payload = {
