@@ -9,7 +9,7 @@
             <div class="card" id="vote">
                 <div class="VoteRestaurants"v-for="res in restaurants">
                   <div class="container">
-                    <h3 id="title">{{res.name}}</h3>
+                    <a :href="res.url"><h3 id="title">{{res.name}}</h3></a>
                         <img id="image" :src="res.image_url" alt = N/A>
                         <p id="rating"></p>
                         <p id="num-reviews">Rating: {{res.rating}} <br> {{res.review_count}} Reviews<br>Price: {{res.price}}</p>
@@ -28,7 +28,7 @@
                 </form>
                 <div class="SearchResults" v-for="res in searchResults">
                     <div class="container">
-                        <h3 id="title">{{res.name}}</h3>
+                        <a :href="res.url"><h3 id="title">{{res.name}} </h3></a>
                         <img id="image" :src="res.image_url" alt = N/A>
                         <p id="rating"></p>
                         <p id="num-reviews">Rating: {{res.rating}} <br> {{res.review_count}} Reviews<br>Price: {{res.price}}</p>
@@ -166,8 +166,7 @@ export default {
                 console.log(e);
             }
         });
-    }
-
+    },
 
 }
 </script>
@@ -208,7 +207,8 @@ h2 {
 
 h3 {
     font-size: 20px;
-    width: 100px
+    width: 100px;
+    color: #D10000;
 }
 
 h3#vote-num{
@@ -246,6 +246,13 @@ img{
   height: 100px;
 }
 
+a:link{
+  text-decoration: none;
+}
+a:hover{
+  text-decoration: underline;
+  text-decoration-color: #D10000;
+}
 .vote{
     cursor: pointer;
     font-weight: bold;
