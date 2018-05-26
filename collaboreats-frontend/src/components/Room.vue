@@ -17,8 +17,12 @@
           <h2> Add a Restaurant </h2>
 
           <div class="card" id="search">
-            <input class="text-field" id="restoSearch"type="text">
+              <form v-on:submit.prevent="searchApi">
+                  <input class="text-field" id="restoSearch"type="text" placeholder="Search by Name, Cuisine, Location">
+              </form>
           </div>
+
+          <!-- <button class="btn" id="searchBtn" v-on:click="searchApi">Search</button> -->
 
         </div>
 
@@ -27,6 +31,12 @@
 </template>
 
 <script>
+var restaurantsHandler = function (data) {
+  var restaurants = data['businesses'];
+  console.log(restaurants);
+  // iterate
+};
+
 export default {
   name: 'Room',
   props: ['roomId', 'userId'],
@@ -35,37 +45,34 @@ export default {
   },
   computed: function(){
   },
-
   data () {
       return {
           restaurants: null,
           searchresults: null,
-          autocompleteresults: null
       }
   },
   methods: {
+      searchApi: function(){
+          var search = $('#restoSearch').val().trim();
+          var payload = {
+              term: search,
+              latitude: 43.4761259,
+              longitude: -80.53880979999997
+          };
 
-      autoCompleteApi: function(){
-          var search = $('#restoSearch').val();
           $.ajax({
-              url: 'https://api.yelp.com/v3/autocomplete',
-              type: "GET",
-              async: false,
-              dataType: 'json',
-              data: {
-                  text: search,
-                  latitude: 43.464,
-                  longitude: 80.520
-              },
-              success: function (response) {
-                  businesses = response.businesses;
-
+              url: 'http://localhost:3000/search',
+              type: "POST",
+              data: JSON.stringify(payload),
+              processData: false,
+              contentType: 'application/json',
+              success: restaurantsHandler,
+              error: function (e) {
+                  console.log(e);
               }
           });
-
       }
   },
-
 }
 </script>
 
@@ -81,5 +88,7 @@ h2 { font-weight: normal; font-size: 48px; color:#D10000; text-align: left; marg
 p {font-weight: normal;}
 
 .card {margin-left:5%; margin-right: 5%; text-align: left; position: relative; border-radius: 6px;  background-color: #FFFFFF;  box-shadow: 0 1px 25px 0 rgba(0,0,0,0.24), 0 10px 55px 0 rgba(0,0,0,0.14);}
+.btn{font-weight: bold; color: #D10000; margin: 50px; font-size: 18px; padding: 20px 100px ; border: none; font-family: 'Avenir', Helvetica, Arial, sans-serif;border-radius: 6px;  background-color: #FFFFFF;
+            box-shadow: 0 1px 25px 0 rgba(0,0,0,0.24), 0 10px 55px 0 rgba(0,0,0,0.14);}
 
 </style>
