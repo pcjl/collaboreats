@@ -121,7 +121,7 @@ router.put('/:id', function (req, res, next) {
                 });
             }
 
-            if (room == null) {
+            if (room == null && !unvote) {
                 Room.findOneAndUpdate({
                     'name': id
                 }, {
@@ -143,7 +143,7 @@ router.put('/:id', function (req, res, next) {
                         'success': true
                     });
                 });
-            } else {
+            } else if (room != null) {
                 var restaurants = room['restaurants'];
 
                 Room.findOne({
@@ -236,6 +236,10 @@ router.put('/:id', function (req, res, next) {
                             'success': true
                         });
                     }
+                });
+            } else {
+                res.json({
+                    'success': true
                 });
             }
         });
