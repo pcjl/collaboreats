@@ -8,10 +8,6 @@
           <h2> Vote </h2>
 
           <div class="card" id="vote">
-              <form v-on:submit.prevent="searchApi">
-                  <input class="text-field" id="restoSearch"type="text" placeholder="Search by Name, Cuisine, Location">
-              </form>
-
               <div v-for = "res in restaurants">
                 <h3 id="title">{{res.name}}</h3>
                 <img id="image" src=res.url>
@@ -103,7 +99,7 @@ export default {
       },
       addToList: function(object){
         var self = this;
-        self.restaurants.append(object);
+        self.restaurants.push(object);
       }
   },
 }
