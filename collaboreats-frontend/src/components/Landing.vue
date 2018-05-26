@@ -12,7 +12,7 @@
             </div>
             <div class="page" id="createRoom" v-show="filter == 'create'">
                 <input class="text-field" id="nickname"type="text">
-                <button class="btn" id="createRoomBtn">Create</button> 
+                <button class="btn" id="createRoomBtn" v-on:click="createRoom()">Create</button>
             </div>
 
             <div class="page" id="joinRoom" v-show="filter == 'join'">
@@ -30,13 +30,29 @@ export default {
     name: 'Landing',
     data () {
       return {
-          filter: 'create'
+          filter: 'create',
+          response: null
         }
 
     },
     methods: {
         setFilter: function(name){
             this.filter = name;
+        },
+        joinRoom: function(id){
+
+
+        },
+        createRoom: function(){
+            $.ajax({
+                url: '/',
+                type: "POST",
+                async: false,
+                dataType: 'json',
+                success: function (response) {
+                    this.response = response;
+                }
+            });
         }
 
     }

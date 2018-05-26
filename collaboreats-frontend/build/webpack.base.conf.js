@@ -18,7 +18,7 @@ module.exports = {
       'window.jQuery': 'jquery',
       jQuery: 'jquery'
     })
-  ]
+  ],
   context: path.resolve(__dirname, '../'),
   entry: {
     app: './src/main.js'
