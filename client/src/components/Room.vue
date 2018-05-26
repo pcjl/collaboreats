@@ -252,7 +252,8 @@ h2 {
     font-size: 48px;
     color: #D10000;
     text-align: left;
-    margin: 20px;
+    margin-left: 5%;
+    margin-right: 5%;
 }
 
 h3 {
