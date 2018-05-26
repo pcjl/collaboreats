@@ -8,7 +8,20 @@
           <h2> Vote </h2>
 
           <div class="card" id="vote">
-            content
+              <form v-on:submit.prevent="searchApi">
+                  <input class="text-field" id="restoSearch"type="text" placeholder="Search by Name, Cuisine, Location">
+              </form>
+
+              <div v-for = "res in restaurants">
+                <h3 id="title">{{res.name}}</h3>
+                <img id="image" src=res.url>
+                <p id="rating">{{res.rating}}</p>
+                <p id="category">{{res.category}}</p>
+                <p id="num-reviews">{{res.numreviews}}</p>
+                <p id="price">{{res.price}}</p>
+                <div class ="btn" v-on:click="addToList(res)">add</div>
+              </div>
+
           </div>
 
         </div>
@@ -20,6 +33,18 @@
               <form v-on:submit.prevent="searchApi">
                   <input class="text-field" id="restoSearch"type="text" placeholder="Search by Name, Cuisine, Location">
               </form>
+
+              <div class="SearchResults" v-for = "res in searchResults">
+                <h3 id="title">{{res.name}}</h3>
+                <img id="image" src=res.url>
+                <p id="rating">{{res.rating}}</p>
+                <p id="category">{{res.category}}</p>
+                <p id="num-reviews">{{res.numreviews}}</p>
+                <p id="price">{{res.price}}</p>
+                <div class ="btn" v-on:click="addToList(res)">add</div>
+              </div>
+
+          </div>
           </div>
 
           <!-- <button class="btn" id="searchBtn" v-on:click="searchApi">Search</button> -->
@@ -31,9 +56,11 @@
 </template>
 
 <script>
-var restaurantsHandler = function (data) {
+var restaurantsHandler = function (self, data) {
   var restaurants = data['businesses'];
   console.log(restaurants);
+  self.searchResults = restaurants;
+
   // iterate
 };
 
@@ -43,34 +70,40 @@ export default {
   components:{
     "card": require("vue-card")
   },
-  computed: function(){
-  },
+
   data () {
       return {
-          restaurants: null,
-          searchresults: null,
+          restaurants: [],
+          // restaurants: ['0','1'],
+          searchResults: [],
       }
   },
   methods: {
       searchApi: function(){
+          var self = this;
           var search = $('#restoSearch').val().trim();
           var payload = {
               term: search,
               latitude: 43.4761259,
               longitude: -80.53880979999997
           };
-
           $.ajax({
               url: 'http://localhost:3000/search',
               type: "POST",
               data: JSON.stringify(payload),
               processData: false,
               contentType: 'application/json',
-              success: restaurantsHandler,
+              success: function (data) {
+                restaurantsHandler(self, data);
+              },
               error: function (e) {
                   console.log(e);
               }
-          });
+          })
+      },
+      addToList: function(object){
+        var self = this;
+        self.restaurants.append(object);
       }
   },
 }

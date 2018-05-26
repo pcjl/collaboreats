@@ -22,3 +22,11 @@ const router = new VueRouter({
 const app = new Vue({
     router
 }).$mount('#app')
+
+// <!--          v-bind:name="res.name"
+//               v-bind:image-url="res.image"
+//               v-bind:rating="res.rating"
+//               v-bind:category="res.categories"
+//               v-bind:numreviews="res.review_count"
+//               v-bind:price="res.price"
+//               v-bind:key="res.id" --> 
