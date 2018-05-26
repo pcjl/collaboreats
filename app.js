@@ -10,6 +10,9 @@ var searchRouter = require('./routes/search');
 var roomRouter = require('./routes/room');
 
 var app = express();
+
+app.set('view engine', 'jade');
+
 app.use(cors());
 app.use(logger('dev'));
 app.use(express.json());
