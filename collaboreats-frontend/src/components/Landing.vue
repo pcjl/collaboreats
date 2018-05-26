@@ -1,5 +1,5 @@
 <template>
-    <div class="room">
+    <div class="landing">
         <h1> collaboreats </h1>
     </div>
 
@@ -7,7 +7,7 @@
 
 <script>
 export default {
-  name: 'Room',
+  name: 'Landing',
   data () {
     return {
 
