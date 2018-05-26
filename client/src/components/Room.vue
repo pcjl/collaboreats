@@ -110,15 +110,17 @@ export default {
       addToList: function(object){
         var self = this;
         self.restaurants.push(object);
+        var payload = {
+            restaurant: object.id,
+            vote: this.userId,
+            unvote: false
+        }
+        console.log(payload);
         $.ajax({
             url: 'http://localhost:3000/'+this.roomId,
             type: "PUT",
+            data: payload,
             processData: false,
-            data: {
-                restaurant: object.id,
-                vote: this.userId,
-                unvote: false
-            },
             contentType: 'application/json',
             success: function (data) {
 
