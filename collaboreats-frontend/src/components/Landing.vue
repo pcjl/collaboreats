@@ -1,6 +1,11 @@
 <template>
-    <div class="landing">
-        <h1> collaboreats </h1>
+    <div class="Landing">
+        <div class="Collaboreats">
+            <h1 id="collab"> collabor</h1><h1 id="eats">eats </h1>
+        </div>
+        <div class="login">
+
+        </div>
     </div>
 
 </template>
@@ -18,8 +23,7 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-h1, h2 { font-weight: normal;}
-ul { list-style-type: none; padding: 0;}
-li {display: inline-block; margin: 0 10px; }
-a { color: #42b983;}
+.Collaboreats h1{display: inline; font-size: 72px; font-weight: normal;}
+.Collaboreats #collab{color: #8C8C8C}
+.Collaboreats #eats{color: #D10000}
 </style>
