@@ -88,7 +88,7 @@ router.put('/:id', function (req, res, next) {
     */
     var id = req.params.id;
 
-    var restaurant = req.body['restaurant'];
+    var restaurant_name = req.body['restaurant'];
     var name = req.body['name'];
     var unvote = req.body['unvote'];
 
@@ -115,16 +115,17 @@ router.put('/:id', function (req, res, next) {
         var room = rooms[0];
         var restaurants = room['restaurants'];
 
-        var found = restaurants.find(function(restaurantObj) {
-            return restaurantObj['name'] == restaurant;
+        var found = restaurants.find(function (restaurant) {
+            return restaurant['name'] == restaurant_name;
         });
         if (found != null) {
             var votes = found['votes'];
 
-            var foundVotes = votes.find(function(vote) {
+            var foundVotes = votes.find(function (vote) {
                 return vote == name;
             });
             if (foundVotes == null && !unvote) {
+
                 Restaurant.findOneAndUpdate({
                     name: restaurant,
                     room_name: id
@@ -143,7 +144,7 @@ router.put('/:id', function (req, res, next) {
 
                     res.json({
                         "success": true
-                    })
+                    });
                 });
             } else if (foundVotes != null && unvote) {
                 Restaurant.findOneAndUpdate({

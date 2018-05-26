@@ -3,6 +3,7 @@ var Schema = mongoose.Schema;
 
 var restaurantSchema = new Schema({
     name: String,
+    room_name: String,
     votes: [String]
 });
 
