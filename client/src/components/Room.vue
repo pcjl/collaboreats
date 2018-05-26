@@ -38,7 +38,9 @@
             </div>
         </div>
         <!-- <button class="btn" id="searchBtn" v-on:click="searchApi">Search</button> -->
-    </div>
+        <div class="footer">
+            <h3 id="roomIdText">Room Id: </h3><h3 id="roomIdValue">{{roomId}}</h3>
+        </div>
     </div>
 </template>
 <script>
@@ -320,4 +322,26 @@ button:hover {
     color: #FFFFFF;
     background-color: #D10000;
 }
+
+/* <div class="footer">
+    <h3 id="roomIdText">Room Id: </h3><h3 id="roomIdValue">{{roomId}}</h3>
+</div> */
+
+
+.footer{
+    margin: 50px 0px;
+}
+
+.footer h3{
+    display: inline;
+    text-align: center;
+}
+
+.footer #roomIdText{
+    color: #8C8C8C;
+}
+.footer #roomIdValue{
+    color: #D10000;
+}
+
 </style>
