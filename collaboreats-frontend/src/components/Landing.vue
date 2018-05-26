@@ -19,7 +19,7 @@
       <div class="page" id="createRoom" v-show="filter == 'create'">
         <form v-on:submit.prevent="createRoom">
           <input class="text-field" id="nicknameCreate" type="text" placeholder="Nickname">
-          <button class="btn" id="createRoomBtn" v-on:click="createRoom">Create</button>
+          <button type="submit" class="btn" id="createRoomBtn">Create</button>
         </form>
       </div>
 
@@ -27,7 +27,7 @@
         <form v-on:submit.prevent="joinRoom">
           <input class="text-field" id="nicknameJoin" type="text" placeholder="Nickname">
           <input class="text-field" id="roomId" type="text" placeholder="Room ID">
-          <button class="btn" id="joinRoomBtn" v-on:click="joinRoom">Join</button>
+          <button type="submit" class="btn" id="joinRoomBtn">Join</button>
         </form>
       </div>
     </div>
@@ -55,15 +55,15 @@
         var nickname = this.getTextFieldData('nicknameJoin');
 
         if (nickname == '') {
-          alert("Please enter your nickname before creating a room");
-          return;
+          alert("Please enter a nickname before joining a room");
+          return false;
         }
 
         var roomId = this.getTextFieldData('roomId');
 
         if (roomId == '') {
-          alert("Please enter a Room ID to enter a room.");
-          return;
+          alert("Please enter a room ID before joining a room");
+          return false;
         }
 
         $.ajax({
@@ -73,15 +73,16 @@
           dataType: 'json',
           success: function (response) {
             if (!response.success) {
-                alert("Error: Could not join room");
-                return;
+              alert("Error: Could not join room");
+              return false;
             }
 
             window.location.replace('/#/room/' + roomId + '/' + nickname);
+            return false;
           },
           error: function (e) {
             alert("Error: " + e.responseText);
-            return;
+            return false;
           }
         });
 
@@ -90,8 +91,8 @@
         var nickname = this.getTextFieldData('nicknameCreate')
 
         if (nickname == '') {
-          alert("Please enter your nickname before creating a room")
-          return;
+          alert("Please enter a nickname before creating a room");
+          return false;
         }
 
         $.ajax({
@@ -107,15 +108,17 @@
 
             var roomId = response.name;
             window.location.replace('/#/room/' + roomId + '/' + nickname);
+            return false;
           },
           error: function (e) {
             alert("Error: " + e.responseText);
-            return;
+            return false;
           }
         });
       }
     }
   }
+
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
@@ -192,4 +195,5 @@
     box-shadow: 0 1px 25px 0 rgba(0, 0, 0, 0.24), 0 10px 55px 0 rgba(0, 0, 0, 0.14);
     cursor: pointer;
   }
+
 </style>
