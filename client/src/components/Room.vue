@@ -87,7 +87,12 @@ export default {
         },
         addToList: function(object){
           var self = this;
-          self.restaurants.push(object);
+          var matching_restaurant = self.restaurants.find(function (restaurant) {
+              return restaurant['id'] == object['id'];
+          });
+          if (matching_restaurant == null) {
+            self.restaurants.push(object);
+          }
           var payload = {
               restaurant: object.id,
               vote: this.userId,
@@ -140,8 +145,15 @@ export default {
             contentType: 'application/json',
             success: function (data) {
                 var restaurants = data['room']['restaurants'];
-                var restaurant_ids = [];
+                var votes = {};
+
                 var i;
+                for(i = 0; i < restaurants.length; i++) {
+                    votes[restaurants[i]['name']] = restaurants[i]['votes'].length;
+                }
+
+                var restaurant_ids = [];
+
                 for(i = 0; i < restaurants.length; i++) {
                     restaurant_ids.push(restaurants[i]['name']);
                 }
@@ -155,7 +167,11 @@ export default {
                     processData: false,
                     contentType: 'application/json',
                     success: function (data) {
-                        self.restaurants = data['businesses'];
+                        var restaurantDetails = data['businesses'];
+                        for(i = 0; i < restaurantDetails.length; i++) {
+                            restaurantDetails[i]['vote_count'] = votes[restaurantDetails[i]['id']];
+                        }
+                        self.restaurants = restaurantDetails;
                     },
                     error: function (e) {
                         console.log(e);
