@@ -1,16 +1,15 @@
 <template>
     <div id="app">
-        <Room/>
+        <Landing/>
     </div>
 </template>
 <script>
-import Room from './components/Room'
 import Landing from './components/Landing'
 
 export default {
     name: 'App',
     components: {
-        Landing, Room
+        Landing
     }
 }
 </script>
@@ -22,7 +21,6 @@ export default {
     color: #2c3e50;
     margin-top: 60px;
     text-align: center;
-
 }
 html {background-color: #FAF4F1;}
 </style>
