@@ -16,8 +16,8 @@
             </div>
 
             <div class="page" id="joinRoom" v-show="filter == 'join'">
-                <input class="text-field" id="nickname"type="text">
-                <input class="text-field" id="roomId"type="text">
+                <input class="text-field" id="nickname"type="text" placeholder = "Nickname">
+                <input class="text-field" id="roomId"type="text" placeholder = "Room ID">
                 <button class="btn" id="joinRoomBtn">Join</button>
             </div>
         </div>
@@ -70,6 +70,15 @@ export default {
 .login #landingFilterBar li a{text-decoration: none; color: #D10000; font-size: 36px;}
 .login #landingFilterBar li.active { font-weight: 600; border-bottom: 3px solid #D10000; }
 
-.text-field{width: 20%; border: none; display: block; padding: 5px; margin: auto; text-align: left; position: relative; border-radius: 6px;  background-color: #FFFFFF;
+.text-field{font-family: 'Avenir', Helvetica, Arial, sans-serif; font-size: 18px; width: 40%; border: none; display: block;padding: 10px; margin: auto; text-align: left; position: relative; border-radius: 6px;  background-color: #FFFFFF;
+            box-shadow: 0 1px 25px 0 rgba(0,0,0,0.24), 0 10px 55px 0 rgba(0,0,0,0.14);}
+.text-field#nickname{
+    margin-top: 50px;
+}
+.text-field#roomId{
+    margin-top:20px;
+}
+
+.btn{font-weight: bold; color: #D10000; margin: 50px; font-size: 18px; padding: 20px 100px ; border: none; font-family: 'Avenir', Helvetica, Arial, sans-serif;border-radius: 6px;  background-color: #FFFFFF;
             box-shadow: 0 1px 25px 0 rgba(0,0,0,0.24), 0 10px 55px 0 rgba(0,0,0,0.14);}
 </style>
