@@ -4,6 +4,8 @@
 
 ---
 
+*[Devpost submission](https://devpost.com/software/collaboreats)*
+
 After countless hours of arguing about food preferences just to pick dinner at a place that is poorly researched and expensive, we have finally had enough.
 
 ### What it does
