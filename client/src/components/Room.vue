@@ -7,7 +7,7 @@
         <div class="VoteSection">
             <h2> Vote </h2>
             <div class="card" id="vote">
-                <div class="VoteRestaurants"v-for="res in restaurants">
+                <div class="VoteRestaurants"v-for="res in orderedRestaurants">
                   <div class="container">
                     <a :href="res.url"><h3 id="title">{{res.name}}</h3></a>
                         <img id="image" :src="res.image_url" alt = N/A>
@@ -57,7 +57,16 @@ export default {
     },
     computed: {
         orderedRestaurants: function(){
-            // return _.orderby(this.restaurants, '')
+            function compare(a, b) {
+                if (a.votes.length < b.votes.length)
+                    return  1;
+                if (a.votes.length > b.votes.length)
+                    return -1;
+                return 0;
+            }
+
+
+            return this.restaurants.sort(compare);
         }
 
     },
