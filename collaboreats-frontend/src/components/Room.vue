@@ -29,13 +29,34 @@
 <script>
 export default {
   name: 'Room',
-  components:{"card": require("vue-card")},
+  components:{
+    "card": require("vue-card")
+  },
+  computed: function(){
+
+  },
       
   data () {
     return {
-
+      restaurants: null
+      searchresults: null
+      autocompleteresults: null
     }
-  }
+  },
+  methods: function(){
+    $.ajax({
+      url: '',
+      type: "GET",
+      async: false,
+      dataType: 'json',
+      data: {
+
+      },
+      success: function (response){
+
+      }
+    })
+  },
   
 }
 </script>
