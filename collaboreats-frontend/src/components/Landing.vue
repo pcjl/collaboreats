@@ -93,6 +93,7 @@
           alert("Please enter your nickname before creating a room")
           return;
         }
+
         $.ajax({
           url: 'http://localhost:3000/',
           type: "POST",
@@ -189,5 +190,6 @@
     border-radius: 6px;
     background-color: #FFFFFF;
     box-shadow: 0 1px 25px 0 rgba(0, 0, 0, 0.24), 0 10px 55px 0 rgba(0, 0, 0, 0.14);
+    cursor: pointer;
   }
 </style>
