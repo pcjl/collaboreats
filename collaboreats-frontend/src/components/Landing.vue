@@ -69,6 +69,9 @@ export default {
                         return;
                     }
                     window.location.replace('/#/room/'+roomId+'/'+nickname);
+                },
+                error: function (e) {
+                    console.log(e);
                 }
             });
 
@@ -94,6 +97,9 @@ export default {
 
                     var roomId = response.name;
                     window.location.replace('/#/room/'+roomId+'/'+nickname);
+                },
+                error: function (e) {
+                    console.log(e);
                 }
             });
         }
