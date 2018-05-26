@@ -13,7 +13,7 @@
                         <img id="image" :src="res.image_url" alt = N/A>
                         <p id="rating"></p>
                         <p id="num-reviews">Rating: {{res.rating}} <br> {{res.review_count}} Reviews<br>Price: {{res.price}}</p>
-                        <h3 id="vote-num">{{res.vote_count}}</h3>
+                        <h3 id="vote-num">{{res.votes.length}}</h3>
                     <button class="vote" v-on:click="submitVote(res)">+ vote</button>
 
                   </div>
@@ -155,7 +155,7 @@ export default {
 
                 var i;
                 for(i = 0; i < restaurants.length; i++) {
-                    votes[restaurants[i]['name']] = restaurants[i]['votes'].length;
+                    votes[restaurants[i]['name']] = restaurants[i]['votes'];
                 }
 
                 var restaurant_ids = [];
@@ -175,7 +175,7 @@ export default {
                     success: function (data) {
                         var restaurantDetails = data['businesses'];
                         for(i = 0; i < restaurantDetails.length; i++) {
-                            restaurantDetails[i]['vote_count'] = votes[restaurantDetails[i]['id']];
+                            restaurantDetails[i]['votes'] = votes[restaurantDetails[i]['id']];
                         }
                         self.restaurants = restaurantDetails;
                     },
