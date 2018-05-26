@@ -15,7 +15,7 @@
                 <p id="category">{{res.category}}</p>
                 <p id="num-reviews">{{res.numreviews}}</p>
                 <p id="price">{{res.price}}</p>
-                <div class ="btn" v-on:click="addToList(res)">add</div>
+                <button class ="btn" v-on:click="addToList(res)">add</button>
               </div>
 
           </div>
@@ -37,7 +37,7 @@
                 <p id="category">{{res.category}}</p>
                 <p id="num-reviews">{{res.numreviews}}</p>
                 <p id="price">{{res.price}}</p>
-                <div class ="btn" v-on:click="addToList(res)">add</div>
+                <button class ="btn" v-on:click="addToList(res)">add</button>
               </div>
 
           </div>
