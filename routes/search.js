@@ -6,10 +6,9 @@ require('dotenv').load();
 
 const YELP_TOKEN = process.env.YELP_TOKEN || '';
 
-/* GET autocomplete. */
+/* GET search. */
 router.get('/', function (req, res, next) {
     /*
-        req:
         {
             "term": "Lazeez",
             "latitude": 43.4761259,
@@ -23,15 +22,19 @@ router.get('/', function (req, res, next) {
         }
     }, function (err, resp, body) {
         if (err) {
-            console.error("Error: ", err);
+            res.json({
+                "success": false,
+                "error": "Yelp error"
+            });
+            return;
         }
         res.json(JSON.parse(body));
     });
 });
 
+/* GET search autocomplete. */
 router.get('/autocomplete', function (req, res, next) {
     /*
-        req:
         {
             "text": "Lazeez",
             "latitude": 43.4761259,
@@ -45,7 +48,11 @@ router.get('/autocomplete', function (req, res, next) {
         }
     }, function (err, resp, body) {
         if (err) {
-            console.error("Error: ", err);
+            res.json({
+                "success": false,
+                "error": "Yelp error"
+            });
+            return;
         }
         res.json(JSON.parse(body));
     });
