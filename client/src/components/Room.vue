@@ -54,15 +54,14 @@ export default {
         "card": require("vue-card")
     },
 
-    data() {
+    data () {
         return {
             restaurants: [],
-            // restaurants: ['0','1'],
-            searchResults: [],
+            searchResults: []
         }
     },
     methods: {
-        searchApi: function() {
+        searchApi: function(){
             var self = this;
             var search = $('#restoSearch').val().trim();
             var payload = {
@@ -76,19 +75,53 @@ export default {
                 data: JSON.stringify(payload),
                 processData: false,
                 contentType: 'application/json',
-                success: function(data) {
-                    restaurantsHandler(self, data);
+                success: function (data) {
+                  restaurantsHandler(self, data);
                 },
-                error: function(e) {
+                error: function (e) {
                     console.log(e);
                 }
             })
         },
-        addToList: function(object) {
-            var self = this;
-            self.restaurants.push(object);
+        addToList: function(object){
+          var self = this;
+          self.restaurants.push(object);
+          var payload = {
+              restaurant: object.id,
+              vote: this.userId,
+              unvote: false
+          }
+          console.log(payload);
+          $.ajax({
+              url: 'http://localhost:3000/'+this.roomId,
+              type: "PUT",
+              data: payload,
+              processData: false,
+              contentType: 'application/json',
+              success: function (data) {
+              },
+              error: function (e) {
+                  console.log(e);
+              }
+          })
         }
     },
+    mounted: function(){
+        $.ajax({
+            url: 'http://localhost:3000/'+this.roomId,
+            type: "GET",
+            processData: false,
+            contentType: 'application/json',
+            success: function (data) {
+                data.rooms.restaurants;
+            },
+            error: function (e) {
+                console.log(e);
+            }
+        });
+    }
+
+
 }
 </script>
 <!-- Add "scoped" attribute to limit CSS to this component only -->
@@ -100,55 +133,8 @@ export default {
 }
 
 .Collaboreats #collab {
-    color: #8C8C8C
+    color: #8C8C8C;
 }
-
-  data () {
-      return {
-          restaurants: [],
-          // restaurants: ['0','1'],
-          searchResults: [],
-      }
-  },
-  methods: {
-      searchApi: function(){
-          var self = this;
-          var search = $('#restoSearch').val().trim();
-          var payload = {
-              term: search,
-              latitude: 43.4761259,
-              longitude: -80.53880979999997
-          };
-          $.ajax({
-              url: 'http://localhost:3000/search',
-              type: "POST",
-              data: JSON.stringify(payload),
-              processData: false,
-              contentType: 'application/json',
-              success: function (data) {
-                restaurantsHandler(self, data);
-              },
-              error: function (e) {
-                  console.log(e);
-              }
-          })
-      },
-      addToList: function(object){
-        var self = this;
-        self.restaurants.push(object);
-        var payload = {
-            restaurant: object.id,
-            vote: this.userId,
-            unvote: false
-        }
-        console.log(payload);
-        $.ajax({
-            url: 'http://localhost:3000/'+this.roomId,
-            type: "PUT",
-            data: payload,
-            processData: false,
-            contentType: 'application/json',
-            success: function (data) {
 
 .text-field {
     font-family: 'Avenir', Helvetica, Arial, sans-serif;
