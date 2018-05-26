@@ -110,13 +110,35 @@ export default {
         }
     },
     mounted: function(){
+        var self = this;
         $.ajax({
-            url: 'http://localhost:3000/'+this.roomId,
+            url: 'http://localhost:3000/' + self.roomId,
             type: "GET",
             processData: false,
             contentType: 'application/json',
             success: function (data) {
-                data.room.restaurants;
+                var restaurants = data['room']['restaurants'];
+                var restaurant_ids = [];
+                var i;
+                for(i = 0; i < restaurants.length; i++) {
+                    restaurant_ids.push(restaurants[i]['name']);
+                }
+                var payload = {
+                    'restaurants': restaurant_ids
+                };
+                $.ajax({
+                    url: 'http://localhost:3000/search/ids',
+                    type: "POST",
+                    data: JSON.stringify(payload),
+                    processData: false,
+                    contentType: 'application/json',
+                    success: function (data) {
+                        self.restaurants = data['businesses'];
+                    },
+                    error: function (e) {
+                        console.log(e);
+                    }
+                });
             },
             error: function (e) {
                 console.log(e);
