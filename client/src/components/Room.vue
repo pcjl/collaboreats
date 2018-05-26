@@ -12,11 +12,11 @@
             <div class="card" id="vote">
                 <div class="VoteRestaurants"v-for="res in orderedRestaurants">
                   <div class="container">
+                    <img id="image" :src="res.image_url" alt = N/A>
                     <a :href="res.url"><h3 id="title">{{res.name}}</h3></a>
-                        <img id="image" :src="res.image_url" alt = N/A>
-                        <p id="rating"></p>
-                        <p id="num-reviews">Rating: {{res.rating}} <br> {{res.review_count}} Reviews<br>Price: {{res.price}}</p>
-                        <h3 id="vote-num">{{res.votes.length}}</h3>
+                    <p id="rating"></p>
+                    <p id="num-reviews">Rating: {{res.rating}} <br> {{res.review_count}} Reviews<br>Price: {{res.price}}</p>
+                    <h3 id="vote-num">{{res.votes.length}}</h3>
                     <button :class="{unvote : userInArray(res) == true}" v-on:click="submitVote(res)">{{userInArray(res) ? '- vote' : '+ vote'}}</button>
                   </div>
                 </div>
@@ -30,8 +30,8 @@
                 </form>
                 <div class="SearchResults" v-for="res in searchResults">
                     <div class="container">
-                        <a :href="res.url"><h3 id="title">{{res.name}} </h3></a>
                         <img id="image" :src="res.image_url" alt = N/A>
+                        <a :href="res.url"><h3 id="title">{{res.name}} </h3></a>
                         <p id="rating"></p>
                         <p id="num-reviews">Rating: {{res.rating}} <br> {{res.review_count}} Reviews<br>Price: {{res.price}}</p>
                         <button class="btn" v-on:click="addToList(res)">add</button>
@@ -266,7 +266,7 @@ h2 {
 
 h3 {
     font-size: 20px;
-    width: 100px;
+    width: 200px;
     color: #D10000;
 }
 
