@@ -144,6 +144,8 @@ router.put('/:id', function (req, res, next) {
                     });
                 });
             } else {
+                var restaurants = room['restaurants'];
+
                 Room.findOne({
                     'name': id,
                     'restaurants': {
@@ -166,24 +168,39 @@ router.put('/:id', function (req, res, next) {
 
                     var voted = room != null;
 
-                    console.log(voted);
+                    var i;
+                    for (i = 0; i < restaurants.length; i++) {
+                        if (restaurants[i]['name'] == restaurant_name) {
+                            break;
+                        }
+                    }
+
+                    var votesParamKey = 'restaurants.' + i + '.votes';
+                    var votesParam = {};
+                    votesParam[votesParamKey] = vote_name;
 
                     if (voted && unvote) {
-                        Room.findOne({
+                        Room.findOneAndUpdate({
                             'name': id,
-                            'restaurants.name': {
-                                $in: [restaurant_name]
+                            'restaurants': {
+                                $elemMatch: {
+                                    'name': {
+                                        $in: [restaurant_name]
+                                    },
+                                    'votes': {
+                                        $in: [vote_name]
+                                    }
+                                }
                             }
                         }, {
-                            $pull: {
-                                'restaurants.votes': vote_name
-                            }
+                            $pull: votesParam
                         }, function (err, room) {
                             if (err) {
                                 res.json({
                                     'success': false,
                                     'error': 'Error removing vote'
                                 });
+                                console.log(err);
                             }
 
                             res.json({
@@ -191,15 +208,17 @@ router.put('/:id', function (req, res, next) {
                             });
                         });
                     } else if (!voted && !unvote) {
-                        Room.findOne({
+                        Room.findOneAndUpdate({
                             'name': id,
-                            'restaurants.name': {
-                                $in: [restaurant_name]
+                            'restaurants': {
+                                $elemMatch: {
+                                    'name': {
+                                        $in: [restaurant_name]
+                                    }
+                                }
                             }
                         }, {
-                            $push: {
-                                'restaurants.votes': vote_name
-                            }
+                            $push: votesParam
                         }, function (err, room) {
                             if (err) {
                                 res.json({
