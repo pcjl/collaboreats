@@ -55,6 +55,12 @@ export default {
     components: {
         "card": require("vue-card")
     },
+    computed: {
+        orderedRestaurants: function(){
+            // return _.orderby(this.restaurants, '')
+        }
+
+    },
 
     data () {
         return {
@@ -196,6 +202,9 @@ export default {
 
 .Collaboreats #collab {
     color: #8C8C8C;
+}
+.Collaboreats #eats {
+    color: #D10000;
 }
 
 .text-field {
