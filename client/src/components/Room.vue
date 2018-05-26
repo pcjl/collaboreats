@@ -105,9 +105,6 @@ export default {
               return restaurant['id'] == object['id'];
           });
           if (matching_restaurant == null) {
-            //
-            ///
-            ///
             object['votes'] = [this.userId];
 
             self.restaurants.push(object);
@@ -134,6 +131,7 @@ export default {
       },
 
       submitVote: function(object){
+          var self = this;
           var payload = {
               restaurant: object.id,
               vote: this.userId,
@@ -147,6 +145,7 @@ export default {
               processData: false,
               contentType: 'application/json',
               success: function (data) {
+                  self.flipUserInArray(object);
                   return;
               },
               error: function (e) {
@@ -154,9 +153,17 @@ export default {
               }
           })
       },
-        userInArray: function(res){
-            return res['votes'].indexOf(this.userId) >= 0;
-        },
+      userInArray: function(res){
+          return res['votes'].indexOf(this.userId) >= 0;
+      },
+      flipUserInArray: function(res) {
+          var index = res['votes'].indexOf(this.userId);
+          if (index >= 0) {
+            res['votes'].splice(index, 1);
+          } else {
+            res['votes'].push(this.userId);
+          }
+      }
     },
     mounted: function(){
         var self = this;
