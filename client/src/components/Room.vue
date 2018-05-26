@@ -171,6 +171,7 @@ export default {
           } else {
             res['votes'].push(this.userId);
           }
+          return;
       }
     },
     mounted: function(){
@@ -245,6 +246,7 @@ export default {
     border: none;
     display: block;
     padding: 5px;
+    box-sizing: border-box;
     margin: auto;
     text-align: left;
     position: relative;
