@@ -4,15 +4,15 @@ var mongoose = require('mongoose');
 var router = express.Router();
 
 var Room = require('../models/room');
-var Restaurant = require('../models/restaurant');
-
 
 require('dotenv').load();
 
 const DB_USER = process.env.DB_USER || '';
 const DB_PASSWORD = process.env.DB_PASSWORD || '';
-const DB_URI = 'mongodb://' + DB_USER + ':' + DB_PASSWORD + '@ds135810.mlab.com:35810/collaboreats';
-
+const DB_URL = process.env.DB_URL || '';
+const DB_PORT = process.env.DB_PORT || '';
+const DB_NAME = process.env.DB_NAME || '';
+const DB_URI = 'mongodb://' + DB_USER + ':' + DB_PASSWORD + '@' + DB_URL + ':' + DB_PORT + '/' + DB_NAME;
 mongoose.connect(DB_URI, {}).then(
     () => {},
     err => {
@@ -26,21 +26,20 @@ router.post('/', function (req, res, next) {
 
     // Create a new room
     var room = new Room({
-        name: id
+        'name': id
     });
 
     room.save(function (err) {
         if (err) {
             res.json({
-                "success": false,
-                "error": "Error creating room"
+                'success': false,
+                'error': 'Error creating room'
             });
-            return;
         }
 
         res.json({
-            "success": true,
-            "name": id
+            'success': true,
+            'name': id
         });
     });
 });
@@ -50,28 +49,26 @@ router.get('/:id', function (req, res, next) {
     var id = req.params.id;
 
     // Find room by id
-    Room.find({
-        name: id
-    }, '-_id name restaurants', function (err, rooms) {
+    Room.findOne({
+        'name': id
+    }, '-_id name restaurants', function (err, room) {
         if (err) {
             res.json({
-                "success": false,
-                "error": "Error retrieving room"
+                'success': false,
+                'error': 'Error retrieving room'
             });
-            return;
         }
 
-        if (rooms.length === 0) {
+        if (room == null) {
             res.json({
-                "success": false,
-                "error": "Room does not exist"
+                'success': false,
+                'error': 'Room does not exist'
             });
-            return;
         }
 
         res.json({
             "success": true,
-            "room": rooms[0]
+            "room": room
         });
     });
 });
@@ -82,128 +79,170 @@ router.put('/:id', function (req, res, next) {
         req:
         {
             restaurant: "IL_lajLYPfw8kYWuy5MK8A",
-            name: "Patrick",
+            vote: "Patrick",
             unvote: false
         }
     */
     var id = req.params.id;
 
     var restaurant_name = req.body['restaurant'];
-    var name = req.body['name'];
+    var vote_name = req.body['vote'];
     var unvote = req.body['unvote'];
 
     // Find room by id
-    Room.find({
-        name: id
-    }, '-_id name restaurants', function (err, rooms) {
+    Room.findOne({
+        'name': id,
+    }, '-_id name restaurants', function (err, room) {
         if (err) {
             res.json({
-                "success": false,
-                "error": "Error retrieving room"
+                'success': false,
+                'error': 'Error retrieving room'
             });
             return;
         }
 
-        if (rooms.length === 0) {
+        if (room == null) {
             res.json({
-                "success": false,
-                "error": "Room does not exist"
+                'success': false,
+                'error': 'Room does not exist'
             });
-            return;
         }
 
-        var room = rooms[0];
-        var restaurants = room['restaurants'];
-
-        var found = restaurants.find(function (restaurant) {
-            return restaurant['name'] == restaurant_name;
-        });
-        if (found != null) {
-            var votes = found['votes'];
-
-            var foundVotes = votes.find(function (vote) {
-                return vote == name;
-            });
-            if (foundVotes == null && !unvote) {
-
-                Restaurant.findOneAndUpdate({
-                    name: restaurant,
-                    room_name: id
-                }, {
-                    $push: {
-                        votes: name
-                    }
-                }, function (err) {
-                    if (err) {
-                        res.json({
-                            "success": false,
-                            "error": "Error submitting vote"
-                        });
-                        return;
-                    }
-
-                    res.json({
-                        "success": true
-                    });
-                });
-            } else if (foundVotes != null && unvote) {
-                Restaurant.findOneAndUpdate({
-                    name: restaurant,
-                    room_name: id
-                }, {
-                    $pull: {
-                        votes: name
-                    }
-                }, function (err) {
-                    if (err) {
-                        res.json({
-                            "success": false,
-                            "error": "Error submitting vote"
-                        });
-                        return;
-                    }
-
-                    res.json({
-                        "success": true
-                    })
+        Room.findOne({
+            'name': id,
+            'restaurants.name': {
+                $in: [restaurant_name]
+            }
+        }, '-_id name restaurants', function (err, room) {
+            if (err) {
+                res.json({
+                    'success': false,
+                    'error': 'Error retrieving room'
                 });
             }
-        } else {
-            var newRestaurant = new Restaurant({
-                name: restaurant,
-                room_name: id,
-                votes: [name]
-            });
-            newRestaurant.save(function (err) {
-                if (err) {
-                    res.json({
-                        "success": false,
-                        "error": "Error submitting vote"
-                    });
-                    return;
-                }
-            });
 
-            Room.findOneAndUpdate({
-                name: id
-            }, {
-                $push: {
-                    restaurants: newRestaurant
-                }
-            }, function (err) {
-                if (err) {
-                    res.json({
-                        "success": false,
-                        "error": "Error submitting vote"
-                    });
-                    return;
-                }
+            if (room == null && !unvote) {
+                Room.findOneAndUpdate({
+                    'name': id
+                }, {
+                    $push: {
+                        restaurants: {
+                            name: restaurant_name,
+                            votes: [vote_name]
+                        }
+                    }
+                }, function (err, room) {
+                    if (err) {
+                        res.json({
+                            'success': false,
+                            'error': 'Error submitting vote1'
+                        });
+                    }
 
+                    res.json({
+                        'success': true
+                    });
+                });
+            } else if (room != null) {
+                var restaurants = room['restaurants'];
+
+                Room.findOne({
+                    'name': id,
+                    'restaurants': {
+                        $elemMatch: {
+                            'name': {
+                                $in: [restaurant_name]
+                            },
+                            'votes': {
+                                $in: [vote_name]
+                            }
+                        }
+                    }
+                }, '-_id name restaurants', function (err, room) {
+                    if (err) {
+                        res.json({
+                            'success': false,
+                            'error': 'Error submitting vote2'
+                        });
+                    }
+
+                    var voted = room != null;
+
+                    var i;
+                    for (i = 0; i < restaurants.length; i++) {
+                        if (restaurants[i]['name'] == restaurant_name) {
+                            break;
+                        }
+                    }
+
+                    var votesParamKey = 'restaurants.' + i + '.votes';
+                    var votesParam = {};
+                    votesParam[votesParamKey] = vote_name;
+
+                    if (voted && unvote) {
+                        Room.findOneAndUpdate({
+                            'name': id,
+                            'restaurants': {
+                                $elemMatch: {
+                                    'name': {
+                                        $in: [restaurant_name]
+                                    },
+                                    'votes': {
+                                        $in: [vote_name]
+                                    }
+                                }
+                            }
+                        }, {
+                            $pull: votesParam
+                        }, function (err, room) {
+                            if (err) {
+                                res.json({
+                                    'success': false,
+                                    'error': 'Error removing vote'
+                                });
+                                console.log(err);
+                            }
+
+                            res.json({
+                                'success': true
+                            });
+                        });
+                    } else if (!voted && !unvote) {
+                        Room.findOneAndUpdate({
+                            'name': id,
+                            'restaurants': {
+                                $elemMatch: {
+                                    'name': {
+                                        $in: [restaurant_name]
+                                    }
+                                }
+                            }
+                        }, {
+                            $push: votesParam
+                        }, function (err, room) {
+                            if (err) {
+                                res.json({
+                                    'success': false,
+                                    'error': 'Error submitting vote3'
+                                });
+                            }
+
+                            res.json({
+                                'success': true
+                            });
+                        });
+                    } else {
+                        res.json({
+                            'success': true
+                        });
+                    }
+                });
+            } else {
                 res.json({
-                    "success": true
-                })
-            });
-        }
+                    'success': true
+                });
+            }
+        });
     });
 });
 
