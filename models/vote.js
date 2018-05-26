@@ -1,8 +1,9 @@
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
-var VoteSchema = new Schema({
+var voteSchema = new Schema({
     name: String
 });
 
-module.exports = mongoose.model('Vote', VoteSchema);
+var Vote = mongoose.model('Vote', voteSchema);
+module.exports = Vote;

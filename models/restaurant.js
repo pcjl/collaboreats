@@ -1,7 +1,7 @@
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
-var RestaurantSchema = new Schema({
+var restaurantSchema = new Schema({
     name: String,
     votes: [{
         type: Schema.Types.ObjectId,
@@ -9,4 +9,5 @@ var RestaurantSchema = new Schema({
     }]
 });
 
-module.exports = mongoose.model('Restaurant', RestaurantsSchema);
+var Restaurant = mongoose.model('Restaurant', restaurantsSchema);
+module.exports = Restaurant;

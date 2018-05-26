@@ -1,7 +1,7 @@
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
-var RoomSchema = new Schema({
+var roomSchema = new Schema({
     name: String,
     restaurants: [{
         type: Schema.Types.ObjectId,
@@ -9,4 +9,5 @@ var RoomSchema = new Schema({
     }],
 });
 
-module.exports = mongoose.model('Room', RoomSchema);
+var Room = mongoose.model('Room', roomSchema);
+module.exports = Room;
