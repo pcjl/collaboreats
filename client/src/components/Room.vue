@@ -6,6 +6,9 @@
         </div>
         <div class="VoteSection">
             <h2> Vote </h2>
+            <div class="emptyList"v-if="emptyRestaurantList">
+                <h2> Add restaurants to the list by using the search bar below...</h2>
+            </div>
             <div class="card" id="vote">
                 <div class="VoteRestaurants"v-for="res in orderedRestaurants">
                   <div class="container">
@@ -68,6 +71,9 @@ export default {
 
 
             return this.restaurants.sort(compare);
+        },
+        emptyRestaurantList: function(){
+            return this.restaurants.length > 0 ? false : true;
         }
 
     },
@@ -345,7 +351,13 @@ button:hover {
 /* <div class="footer">
     <h3 id="roomIdText">Room Id: </h3><h3 id="roomIdValue">{{roomId}}</h3>
 </div> */
-
+.emptyList{
+    text-align: center;
+    margin: 32px 303px 124px;
+}
+.emptyList h2{
+    color: #8C8c8C;
+}
 
 .footer{
     margin: 50px 0px;
