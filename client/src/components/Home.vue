@@ -1,5 +1,5 @@
 <template>
-  <div class="Landing">
+  <div class="Home">
     <div class="Collaboreats">
       <h1 id="collab"> collabor</h1>
       <h1 id="eats">eats </h1>
@@ -36,7 +36,7 @@
 
 <script>
   export default {
-    name: 'Landing',
+    name: 'Home',
     data() {
       return {
         filter: 'create',
@@ -66,7 +66,7 @@
         }
 
         $.ajax({
-          url: 'http://localhost:3000/' + roomId,
+          url: 'http://localhost:3000/api/rooms/' + roomId,
           type: "GET",
           async: false,
           dataType: 'json',
@@ -95,7 +95,7 @@
         }
 
         $.ajax({
-          url: 'http://localhost:3000/',
+          url: 'http://localhost:3000/api/rooms/',
           type: "POST",
           async: false,
           dataType: 'json',
@@ -117,10 +117,8 @@
       }
     }
   }
-
 </script>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
   .Collaboreats h1 {
     display: inline;
@@ -194,5 +192,4 @@
     box-shadow: 0 1px 25px 0 rgba(0, 0, 0, 0.24), 0 10px 55px 0 rgba(0, 0, 0, 0.14);
     cursor: pointer;
   }
-
 </style>

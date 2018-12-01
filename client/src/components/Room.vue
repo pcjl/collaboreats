@@ -96,7 +96,7 @@ export default {
                 longitude: -80.53880979999997
             };
             $.ajax({
-                url: 'http://localhost:3000/search',
+                url: 'http://localhost:3000/api/search',
                 type: "POST",
                 data: JSON.stringify(payload),
                 processData: false,
@@ -126,7 +126,7 @@ export default {
           }
           console.log(payload);
           $.ajax({
-              url: 'http://localhost:3000/' + this.roomId,
+              url: 'http://localhost:3000/api/rooms/' + this.roomId,
               type: "PUT",
               data: JSON.stringify(payload),
               processData: false,
@@ -149,7 +149,7 @@ export default {
           }
           console.log(payload);
           $.ajax({
-              url: 'http://localhost:3000/' + this.roomId,
+              url: 'http://localhost:3000/api/rooms/' + this.roomId,
               type: "PUT",
               data: JSON.stringify(payload),
               processData: false,
@@ -179,7 +179,7 @@ export default {
     mounted: function(){
         var self = this;
         $.ajax({
-            url: 'http://localhost:3000/' + self.roomId,
+            url: 'http://localhost:3000/api/rooms/' + self.roomId,
             type: "GET",
             processData: false,
             contentType: 'application/json',
@@ -202,7 +202,7 @@ export default {
                     'restaurants': restaurant_ids
                 };
                 $.ajax({
-                    url: 'http://localhost:3000/search/ids',
+                    url: 'http://localhost:3000/api/search/ids',
                     type: "POST",
                     data: JSON.stringify(payload),
                     processData: false,

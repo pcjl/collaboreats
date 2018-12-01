@@ -22,8 +22,8 @@ app.use(express.urlencoded({
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'client/dist/')));
 
-app.use('/search', searchRouter);
-app.use('/', roomRouter);
+app.use('/api/search', searchRouter);
+app.use('/api/rooms', roomRouter);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
