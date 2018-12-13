@@ -3,6 +3,8 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
+    "build": "node client/build/build.js",
+    "postinstall": "npm run build",
     "start": "nodemon ./bin/www"
   },
   "dependencies": {
